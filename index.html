@@ -68,34 +68,7 @@
         </p>
       </div>
 
-      <form>
-        <div class="mode mode-autocomplete">
-
-          <div class="row mb-3">
-            <div class="autocomplete-wrapper col-md-12 col-sm-12 col-12">
-              <div class="form-group">
-                <label for="autocomplete">@todo</label>
-                <input id="autocomplete" class="typeahead form-control" type="text" placeholder="@todo">
-              </div>
-            </div>
-          </div>
-
-          <div class="row guild-list mb-5"></div>
-        </div>
-
-      </form>
-
-      <div class="guild-list mt-4">
-        <table class="table table-sm">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">@todo</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-
+      <div class="content"></div>
     </main><!-- /.container -->
 
     <nav class="navbar fixed-bottom navbar-expand navbar-dark bg-dark">
@@ -121,10 +94,54 @@
       </div>
     </nav>
 
-    <template class="template template-guild-typeahead">
+    <template class="template template-guild-typeahead" data-template="GuildTypeahead">
       <div>
         {{{guildName}}}
       </div>
+    </template>
+
+    <template class="template template-guild-ranking-row" data-template="GuildRankingRow">
+      <tr class="guild-row" data-guild-id="{{guildId}}">
+        <td>{{rank}}</td>
+        <td>
+          <a class="btn btn-primary btn-guild-name" href="?action=guild&guildId={{guildId}}">{{name}}</a>
+        </td>
+        <td>{{trophies}}</td>
+        <td>{{wins}}</td>
+        <td>{{losses}}</td>
+      </tr>
+    </template>
+
+    <template class="template template-guild-list" data-template="GuildList">
+      <div class="guild-list mt-4">
+        <table class="table table-sm">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Rank</th>
+              <th scope="col">Guild Name</th>
+              <th scope="col">Trophies</th>
+              <th scope="col">Wins</th>
+              <th scope="col">Losses</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </template>
+
+    <template class="template template-autocomplete" data-template="Autocomplete">
+      <form>
+        <div class="mode mode-autocomplete">
+          <div class="row mb-3">
+            <div class="autocomplete-wrapper col-md-12 col-sm-12 col-12">
+              <div class="form-group">
+                <label for="autocomplete">@todo</label>
+                <input id="autocomplete" class="typeahead form-control" type="text" placeholder="@todo">
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
     </template>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -133,6 +150,11 @@
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
     <script src="lib/typeahead.bundle.min.js"></script>
 
-    <script src="scripts.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/utility.js"></script>
+    <script src="js/actions/rankings.js"></script>
+    <script src="js/actions/guild.js"></script>
+    <script src="js/actions/battle.js"></script>
+    <script src="js/init.js"></script>
   </body>
 </html>
