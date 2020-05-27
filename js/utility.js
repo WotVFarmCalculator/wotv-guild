@@ -39,3 +39,12 @@ function loadFileList(fileList, callback) {
 function applyTemplate(template, data) {
   return templates[template](data);
 }
+
+/**
+ * Shows an error to the user.
+ *
+ * @param errorMessage
+ */
+function showError(errorMessage) {
+  $('.feedback').empty().append(applyTemplate('ErrorMessage', {errorMessage: errorMessage}));
+}

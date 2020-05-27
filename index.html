@@ -54,19 +54,14 @@
     </div>
 
     <main role="main" class="main container">
-      <div class="jumbotron">
-        <h2>Latest:</h2>
-        <h3>
-          @todo: put initial launch notes here
-        </h3>
-        <ul>
-          <li>@todo</li>
-        </ul>
+      <nav class="nav nav-main nav-pills nav-fill container mb-4">
+        <a class="nav-item nav-link active" href="index.html">Home</a>
+      </nav>
 
-        <p>
-          <a href="https://github.com/WotVFarmCalculator/wotv-guild.github.io/commits/gh-pages" target="_blank">See full changelog</a>
-        </p>
-      </div>
+
+      <h1 class="title"></h1>
+
+      <div class="feedback"></div>
 
       <div class="content"></div>
     </main><!-- /.container -->
@@ -94,27 +89,36 @@
       </div>
     </nav>
 
-    <template class="template template-guild-typeahead" data-template="GuildTypeahead">
+    <template class="template" data-template="ErrorMessage">
+      <div class="alert alert-danger" role="alert">
+        {{errorMessage}}
+      </div>
+    </template>
+
+    <template class="template" data-template="GuildTypeahead">
       <div>
         {{{guildName}}}
       </div>
     </template>
 
-    <template class="template template-guild-ranking-row" data-template="GuildRankingRow">
-      <tr class="guild-row" data-guild-id="{{guildId}}">
-        <td>{{rank}}</td>
-        <td>
-          <a class="btn btn-primary btn-guild-name" href="?action=guild&guildId={{guildId}}">{{name}}</a>
-        </td>
-        <td>{{trophies}}</td>
-        <td>{{wins}}</td>
-        <td>{{losses}}</td>
-      </tr>
+    <template class="template" data-template="LeagueSelect">
+      <div class="league-selector row">
+        <div class="col col-2">
+          <label for="league">Choose a league:</label>
+        </div>
+        <div class="col">
+          <select id="league" name="league">
+            {{#each leagues}}
+              <option value="{{@key}}">{{this}}</option>
+            {{/each}}
+          </select>
+        </div>
+      </div>
     </template>
 
-    <template class="template template-guild-list" data-template="GuildList">
+    <template class="template" data-template="GuildList">
       <div class="guild-list mt-4">
-        <table class="table table-sm">
+        <table class="table table-sm table-striped table-bordered">
           <thead class="thead-dark">
             <tr>
               <th scope="col">Rank</th>
@@ -129,7 +133,61 @@
       </div>
     </template>
 
-    <template class="template template-autocomplete" data-template="Autocomplete">
+    <template class="template" data-template="GuildRankingRow">
+      <tr class="guild-row" data-guild-id="{{id}}">
+        <td>
+          <div class="rank-wrapper d-inline-flex justify-content-center align-items-center">
+            <div class="rank">Rank {{rank}}</div>
+          </div>
+        </td>
+        <td>
+          {{[gt] GuildButton }}
+        </td>
+        <td><img src="img/ui/guildview_icon_trophy.png" class="trophy" alt="Trophy Icon"> {{league_trophy}}</td>
+        <td>{{win_count}}</td>
+        <td>{{lose_count}}</td>
+      </tr>
+    </template>
+
+    <template class="template template-partial" data-template="GuildButton">
+      <a class="btn btn-primary" href="?action=guild&guildId={{id}}">
+        <img src="img/banners/guildemblem_{{banner}}.png" class="banner" alt="Guild Banner">
+        {{name}}
+      </a>
+    </template>
+
+    <template class="template" data-template="GuildBattleList">
+      <div class="guild-battle-list mt-4">
+        <table class="table table-sm">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Result</th>
+              <th scope="col">Stars</th>
+              <th scope="col">Date</th>
+              <th scope="col">Opponent</th>
+              <th scope="col">&nbsp;</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </template>
+
+    <template class="template" data-template="GuildBattleRow">
+      <tr class="guild-battle-row" data-guild-battle-id="{{id}}">
+        <td><span class="battle-result">{{result}}</span></td>
+        <td>{{ally_star}}<span class="battle-star">★</span> vs. {{enemy_star}}<span class="battle-star">★</span></td>
+        <td>{{event_date}}</td>
+        <td>
+          {{[gt] GuildButton id=enemy_guild_id name=name banner=enemy_guild_id }}
+        </td>
+        <td>
+          <a class="btn btn-primary" href="?action=battle&guildId={{ally_guild_id}}&battleId={{id}}">View Battle Details</a>
+        </td>
+      </tr>
+    </template>
+
+    <template class="template" data-template="Autocomplete">
       <form>
         <div class="mode mode-autocomplete">
           <div class="row mb-3">

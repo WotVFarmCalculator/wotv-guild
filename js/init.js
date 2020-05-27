@@ -1,27 +1,29 @@
-var fileList = {
-  'Unit': config['dataUrl'] + 'data/Unit.json',
-  'PlayerLvTbl': config['dataUrl'] + 'data/PlayerLvTbl.json',
-  'UnitLvTbl': config['dataUrl'] + 'data/UnitLvTbl.json',
-  'Job': config['dataUrl'] + 'data/Job.json',
-  'GuildStatueInfo': config['dataUrl'] + 'data/GuildStatueInfo.json',
-  'GuildStatueExperienceTBL': config['dataUrl'] + 'data/GuildStatueExperienceTBL.json',
-  'UnitAbilityBoard': config['dataUrl'] + 'data/UnitAbilityBoard.json',
-  'Skill': config['dataUrl'] + 'data/Skill.json',
-  'Buff': config['dataUrl'] + 'data/Buff.json',
-  'NBeastLvTbl': config['dataUrl'] + 'data/NBeastLvTbl.json',
-  'NetherBeastAbilityBoard': config['dataUrl'] + 'data/NetherBeastAbilityBoard.json',
-  'VisionCard': config['dataUrl'] + 'data/VisionCard.json',
-  'VisionCardLvTbl': config['dataUrl'] + 'data/VisionCardLvTbl.json',
-  'Artifact': config['dataUrl'] + 'data/Artifact.json',
-  'ArtifactLvTbl': config['dataUrl'] + 'data/ArtifactLvTbl.json',
-};
+$(document).ready(function () {
+  var fileList = {
+    'Unit': config['dataUrl'] + 'data/Unit.json',
+    'PlayerLvTbl': config['dataUrl'] + 'data/PlayerLvTbl.json',
+    'UnitLvTbl': config['dataUrl'] + 'data/UnitLvTbl.json',
+    'Job': config['dataUrl'] + 'data/Job.json',
+    'GuildStatueInfo': config['dataUrl'] + 'data/GuildStatueInfo.json',
+    'GuildStatueExperienceTBL': config['dataUrl'] + 'data/GuildStatueExperienceTBL.json',
+    'UnitAbilityBoard': config['dataUrl'] + 'data/UnitAbilityBoard.json',
+    'Skill': config['dataUrl'] + 'data/Skill.json',
+    'Buff': config['dataUrl'] + 'data/Buff.json',
+    'NBeastLvTbl': config['dataUrl'] + 'data/NBeastLvTbl.json',
+    'NetherBeastAbilityBoard': config['dataUrl'] + 'data/NetherBeastAbilityBoard.json',
+    'VisionCard': config['dataUrl'] + 'data/VisionCard.json',
+    'VisionCardLvTbl': config['dataUrl'] + 'data/VisionCardLvTbl.json',
+    'Artifact': config['dataUrl'] + 'data/Artifact.json',
+    'ArtifactLvTbl': config['dataUrl'] + 'data/ArtifactLvTbl.json',
+  };
+
+  loadFileList(fileList, start);
+});
 
 var data = {};
 var templates = {};
 var action = 'rankings';
 var actionParams = {};
-
-loadFileList(fileList, start);
 
 /**
  * Initializes and starts the application.
@@ -35,7 +37,7 @@ function start(loadedData) {
 
   // Perform state-based routing based on query params.
   var params = new URLSearchParams(window.location.search);
-  if (params.has('action') && config['validActions'].contains(params.get('action'))) {
+  if (params.has('action') && config['validActions'].includes(params.get('action'))) {
     action = params.get('action');
   }
 
@@ -64,12 +66,24 @@ function initTemplates() {
     return aString.toLowerCase().replace(' ', '-').replace('\'', '');
   });
 
-  var $templates = $('template');
+  // Register template partials.
+  var $partials = $('.template-partial');
+  $partials.each(function (i, elem) {
+    Handlebars.registerPartial($(this).data('template'), $(this).html());
+  });
+
+  // Register main templates.
+  var $templates = $('template').not('.template-partial');
   $templates.each(function (i, elem) {
     var $template = $(this);
     var templateKey = $template.data('template');
-    templates[templateKey] = Handlebars.compile($template.html());
+    var html = $template.html();
+    // Since we are using HTML to define the templates, the greater than sign
+    // has to be escaped inline and unescaped before registering as a template.
+    html = html.replace('[gt]', '>');
+    templates[templateKey] = Handlebars.compile(html);
   });
+
 }
 
 /**

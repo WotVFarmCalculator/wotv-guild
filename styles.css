@@ -56,6 +56,7 @@
 
 body {
   padding-top: 4rem;
+  padding-bottom: 7rem;
 }
 
 .fixed-top {
@@ -363,6 +364,56 @@ textarea {
 .main {
   display: none;
 }
+
+.guild-list th:first-child {
+  width: 4.5rem;
+}
+
+.guild-list td:first-child {
+  text-align: center;
+}
+
+.guild-row .btn {
+  font-weight: bold;
+  text-shadow: 1px 1px 1px rgba(0,0,0,1);
+}
+
+.trophy {
+  max-height: 1.2rem;
+}
+
+.banner {
+  max-height: 1.5rem;
+  margin-right: .8rem;
+  filter: drop-shadow(0px 0px .1em rgba(0, 0, 0, .4));
+  transform: scale(1.8);
+}
+
+/*
+@todo: add ranking filigrees
+all = text = Rank #
+rank 1 = white gold text, white gold filigree (w crown), purple bg
+rank 2 = blue-silver text, blue-silver filigree (w crown), old man blue bg
+rank 3 = yellow gold text , yellow gold filigree (w crown), hunter green bg
+rank 4+ = white text, white filigree (no crown), black bg
+ */
+
+.rank-wrapper {
+  height: 3.0rem;
+  width: 3.0rem;
+  background-image: url("img/ui/guildview_battle_rank_base.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: -.3rem 0 -.2rem;
+}
+
+.rank {
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow: 1px 1px 1px rgba(0,0,0,1);
+  font-size: .8rem;
+}
+
 
 /** Dark Mode START **/
 .btn-dark-mode {
