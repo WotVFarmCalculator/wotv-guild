@@ -46,5 +46,5 @@ function applyTemplate(template, data) {
  * @param errorMessage
  */
 function showError(errorMessage) {
-  $('.feedback').empty().append(applyTemplate('ErrorMessage', {errorMessage: errorMessage}));
+  $('.feedback').html(applyTemplate('ErrorMessage', {errorMessage: errorMessage}));
 }

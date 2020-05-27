@@ -109,7 +109,7 @@
         <div class="col">
           <select id="league" name="league">
             {{#each leagues}}
-              <option value="{{@key}}">{{this}}</option>
+            <option value="{{@key}}">{{this}}</option>
             {{/each}}
           </select>
         </div>
@@ -143,7 +143,9 @@
         <td>
           {{[gt] GuildButton }}
         </td>
-        <td><img src="img/ui/guildview_icon_trophy.png" class="trophy" alt="Trophy Icon"> {{league_trophy}}</td>
+        <td>
+          <img src="img/ui/guildview_icon_trophy.png" class="trophy" alt="Trophy Icon"> {{league_trophy}}
+        </td>
         <td>{{win_count}}</td>
         <td>{{lose_count}}</td>
       </tr>
@@ -176,7 +178,8 @@
     <template class="template" data-template="GuildBattleRow">
       <tr class="guild-battle-row" data-guild-battle-id="{{id}}">
         <td><span class="battle-result">{{result}}</span></td>
-        <td>{{ally_star}}<span class="battle-star">★</span> vs. {{enemy_star}}<span class="battle-star">★</span></td>
+        <td>{{ally_star}}<span class="battle-star">★</span> vs. {{enemy_star}}<span class="battle-star">★</span>
+        </td>
         <td>{{event_date}}</td>
         <td>
           {{[gt] GuildButton id=enemy_guild_id name=name banner=enemy_guild_id }}

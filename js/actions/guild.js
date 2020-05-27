@@ -32,7 +32,6 @@ function startGuild(loadedData) {
 
   if (!data.hasOwnProperty(guildKey) || !data[guildKey].hasOwnProperty('body') || !data[guildKey]['body'].hasOwnProperty('records')) {
     showError('Unable to load rankings due to missing data.');
-    console.error('Unable to load rankings');
     return;
   }
 
@@ -40,7 +39,6 @@ function startGuild(loadedData) {
   $content.append(applyTemplate('GuildBattleList', '{}'));
 
   var records = data[guildKey]['body']['records'];
-  console.log(records);
 
   records.forEach(function (record) {
     var recordVM = record;
@@ -57,8 +55,6 @@ function startGuild(loadedData) {
       recordVM.result = "Loss";
     }
 
-    //move guild_id to enemy_guild_id
-    //add ally_guild_id
     recordVM.enemy_guild_id = record.guild_id;
     recordVM.ally_guild_id = guildId;
 

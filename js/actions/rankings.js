@@ -1,12 +1,12 @@
+/**
+ * Tracks the current chosen league.
+ * @type {string}
+ */
 var league = 'legend';
 
-/*
-GE_REWARD3
-GE_REWARD10
-GE_REWARD11
-GE_REWARD14
+/**
+ * Maps internal banner ID to image name.
  */
-
 var bannerMap = {
   'GE_REWARD9': 'alien',
   'GE_REWARD1': 'allyare',
@@ -70,7 +70,7 @@ function startRankings(loadedData) {
   }));
   $content.append(applyTemplate('GuildList', {}));
 
-  $('.league-selector select option[value=' + league + ']').attr('selected','selected');
+  $('.league-selector select option[value=' + league + ']').attr('selected', 'selected');
 
   // Handle change of selected league - redirect with query string param.
   $('body').on('change', '.league-selector select', function () {
@@ -96,8 +96,6 @@ function startRankings(loadedData) {
 
     $content.find('tbody').append(applyTemplate('GuildRankingRow', guildRanking));
   });
-
-
 }
 
 
